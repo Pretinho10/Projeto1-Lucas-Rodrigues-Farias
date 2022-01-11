@@ -1,0 +1,99 @@
+O trecho entre /*, na linha 1, até o */, na linha 8, representa um comentário que se estende por mais de uma linha. Comentários em um código de programa são ignorados pelo compilador. Eles servem apenas para prestar informações complementares aos leitores humanos do código.
+
+   1:/*  Programa: Contagem de numeros
+   2:    Autor: Jose da Silva (RA 012345)
+   3:    Turma MC102X
+   4:    Versao: a
+   5:    Concluída em: 28/02/2011
+   6:    Breve descricao:
+   7:        Este programa faz a leitura de N números inteiros
+   8:        e conta quantos são positivos, negativos e nulos */
+
+Na linha 10, temos uma diretiva para informar ao compilador que especificações externas serão utilizadas. No nosso caso particular, tais especificações se encontram na biblioteca stdio. Uma diretiva precisa começar com uma cerquilha (#) bem no início de uma linha. Na diretiva em questão, a cerquilha é seguida pela "palavra reservada" include. As informações necessárias para o processo de compilação encontram-se em um arquivo de extensão .h (para indicar que se trata de um "header file") em um diretório conhecido pelo compilador (isto é, pelo programa que converte código fonte em código objeto). O nome de tal arquivo é delimitado pelos símbolos menor (<) e maior (>).
+
+   9:
+  10:#include <stdio.h>
+
+Na linha 11 temos a diretiva define que informa que toda a ocorrência no código do primeiro elemento depois do define deve ser substituída antes de iniciar o processo de compilação pelo elemento que se segue. No nosso caso particular, isto significa substituir toda a ocorrência de N, no código, pela representação simbólica do número dez ("constante simbólica" 10). Na prática, isto quer dizer que N é uma "constante literal" cujo valor é dez. Qual é a vantagem de usar uma constante literal? Ao escrevermos um código em termos de uma constante literal, se quisermos alterar o valor da constante só precisamos efetuar a mudança na respectiva diretiva define. No caso de uso de uma constante simbólica, nós teríamos que percorrer todo o código e verificar as constantes literais para saber se alguma alteração procede ou não. É, portanto, mais elegante e facilita a manutenção do código se empregarmos constantes literais cujos valores possam, eventualmente, mudar.
+
+O que se segue a um // até o final de uma linha de código é um comentário e, portanto, ignorado pelo compilador. Comentários, como já dito, servem para conferir uma maior legibilidade ao código às pessoas que, eventualmente, se debruçarem sobre o mesmo.
+
+  11:#define N 10     // definição da constante N
+
+Na linha 13, inicia-se a declaração da "função principal" (no nosso caso, o código só contém a função principal) com o seu "cabeçalho". O "corpo" da função é delimitado pelas chaves { e } nas linhas 14 e 54, respectivamente.
+
+  12:
+  13:int main(void)
+  14:{
+
+Nas linhas 15 e 17, são declaradas as variáveis utilizadas na função principal. No nosso caso particular, todas elas são do "tipo" int, isto é, são variáveis associadas a valores inteiros. As variáveis i e numero são declaradas sem valor inicial enquanto que as variáveis positivos, negativos e nulos são declaradas com valor inicial igual a zero.
+
+  15:    int
+  16:    i, numero,
+  17:    positivos = 0, negativos = 0, nulos = 0; // contadores
+
+Na linha 21, a função printf( ) da biblioteca stdio escreve a mensagem
+Entre com 10 números inteiros.
+na janela do programa e muda o cursor para a linha de baixo. Os caracteres %d indicam o local em que será inserido um valor inteiro na base 10. No caso particular, o valor específico a ser inserido é o valor da constante literal N, isto é, o %d será substituído por 10, pois N corresponde ao valor dez,
+
+  18:
+  19:    /* Analise dos dados com o objetivo de verificar
+  20:       o número de valores em cada categoria. */
+  21:    printf("Entre com %d numeros inteiros.\n", N);
+
+Na linha 22 temos um comando que controla a repetição da execução dos comandos no bloco entre as linhas 23 e 44. Ao final de cada ciclo de execução do bloco de código entre a linha 23 e a linha 44 é incrementada em uma unidade. A expressão i = i + 1 deve ser lida como: some 1 ao valor associado a i e estabeleça uma nova associação entre i e o resultado da soma efetuada. O símbolo = não representa uma relação de igualdade, mas indica uma "atribuição". O resultado da expressão do lado direito é atribuído (associado) à variável do lado esquerdo. De forma abreviada, "i recebe o valor de i + 1". No início do primeiro ciclo i vai valer 1, no segundo 2 e assim sucessivamente enquanto i for menor ou igual a 10.
+
+  22:    for (i = 1; i <= N; i = i + 1)
+  23:    {
+
+No primeiro ciclo, a função printf( ) da biblioteca stdio vai escrever
+  1)   
+no início da nova linha na janela de execução do programa. No segundo ciclo, ao invés de 1 será escrito 2 antes do parêntese e assim sucessivamente. A indicação %3d deve ser lida como: "use um campo de três posições para escrever o valor decimal". Se o decimal requer menos de três posições para ser escrito, então ele é alinhado com a lado direito do campo e precedido por um ou dois espaços em branco dependendo dos dígitos a serem efetivamente escritos. Na linha 25, temos a função scanf( ) da stdio. Ela aguarda o usuário digitar algo e pressionar a tecla Enter. Uma vez sinalizada o final da digitação com o Enter, ela tenta converter o digitado supostamente em formato decimal em um valor e o associa à variável numero. De forma sintética, a linha 25 poderia ser lida como "leia um inteiro em formato decimal e associe o seu valor a numero.
+
+  24:        printf("%3d)  ", i);
+  25:        scanf("%d", &numero);
+
+A seguir vem um comando condicional if. Se a condição numero > 0 for verdadeira, então é executado o bloco entre as chaves { e } nas linhas 27 e 31 e depois o fluxo da execução é desviado para a linha 44 em que a chave } indica o fim do bloco controlado pelo comando for na linha 22. Os comandos nas linhas 29 e 30 são, portanto, subordinadas ao comando if da linha 26 e, para indicar tal condição ao leitor humano, é feito um deslocamento da margem dos dois comandos mais para a direita. A boa prática de deslocamentos da margem para indicar a estrutura de subordinação é chamada, no jargão técnico, de "indentação".
+
+Se a condição numero > 0 do comando if na linha 26 for falsa, então a execução segue após o else da linha 32 que é um novo comando if que se estende da linha 33 à linha 43.
+
+O que ocorre de fato no comando if que se inicia na linha 26? Se o último valor lido (e associado a numero) for maior do que zero, então o usuário é informado sobre tal fato, o valor associado à variável positivos é incrementado em uma unidade e uma nova associação é estabelecida entre a variável positivos e o resultado do incremento. De forma abreviada dizemos que "positivos foi incrementado em uma unidade". Neste ponto, a execução do if é terminada. Se o valor associado à variável numero não for maior do que zero, então o fluxo é desviado para o comando depois do else da linha 32, isto é, para o if mais interno que se inicia na linha 33. Segue, então, a execução com um teste para verificar se o valor da variável numero é menor do que zero. Em caso afirmativo, o usuário é informado sobre tal fato e, a seguir, a variável "negativos é incrementada em uma unidade" (linhas 36 e 37). Se as condições da linha 26 e da linha 33 forem falsas (isto é, o valor associado à variável numero não é positivo nem negativo), então é informado que o valor lido é zero e a variável "nulos é incrementada em uma unidade". Em suma, o comando if com início na linha 26 faz a contabilidade de números positivos, negativos e nulos lidos.
+
+  26:        if (numero > 0)
+  27:        {
+  28:            // numero > 0
+  29:            printf("O numero %d 'e maior que zero\n", numero);
+  30:            positivos = positivos + 1;
+  31:        }
+  32:        else                   // numero <= 0
+
+O comando if, que se estende da linha 33 até a linha 43, é um comando subordinado ao comando if que se inicia na linha 26. Ele só é executado se a condição numero > 0, na linha 26, for falsa. Se a condição do if subordinado (numero < 0) for verdadeira, então os comandos nas linhas 36 e 37 serão executados. Em caso contrário, isto é, tanto a condição numero > 0 como a condição numero < 0 forem falsas, então os comandos nas linhas 41 e 42 são executadas. Nesta situação, o valor associado a numero só pode ser igual a zero.
+
+  33:            if (numero < 0)
+  34:            {
+  35:                // numero < 0
+  36:                printf("O numero %d 'e menor que zero\n", numero);
+  37:                negativos = negativos + 1;
+  38:            }
+  39:            else                 // numero = 0
+  40:            {
+  41:                printf("O numero %d 'e igual a zero\n", numero);
+  42:                nulos = nulos + 1;
+  43:            }
+  44:    }
+  45:
+
+Uma vez terminada a execução do comando for que se estende da linha 22 até a linha 44, os resultados da contabilidade de números positivos, negativos e nulos são apresentadas ao usuário do programa. O símbolo \n resulta em uma mudança de linha na saída de informações na janela do programa. Um \n\n, portanto, tem o efeito de mudar de linha na janela do programa duas vezes.
+
+  46:    /* Apresentação dos resultados. */
+  47:    printf("\n\n");
+  48:    printf("Na sequencia de %d numeros temos:\n", N);
+  49:    printf("   - Numeros positivos: %d\n", positivos);
+  50:    printf("   - Numeros negativos: %d\n", negativos);
+  51:    printf("   - Numeros nulos:     %d\n", nulos);
+  52:
+
+O comando return na função main( ) causa o término da execução do programa. Se o valor retornado for zero, então isto indica que a execução terminou em condições normais.
+
+  53:    return 0;
+  54:}
